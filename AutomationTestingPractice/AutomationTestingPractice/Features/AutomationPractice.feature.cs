@@ -105,44 +105,8 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.Given("Go To Automation Testing Practice Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Name",
-                            "Email",
-                            "Phone",
-                            "Address",
-                            "Gender",
-                            "Day1",
-                            "Day2",
-                            "Day3"});
-                table1.AddRow(new string[] {
-                            "Mahir Afsar",
-                            "Mahir@gmail.com",
-                            "01302309325",
-                            "",
-                            "Male",
-                            "Sunday",
-                            "Monday",
-                            "Thursday"});
-#line 8
- testRunner.When("Enter Users Name, Email, Phone, Address, Gender and Days", ((string)(null)), table1, "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Country",
-                            "Color1",
-                            "Color2",
-                            "Color3",
-                            "Date"});
-                table2.AddRow(new string[] {
-                            "Japan",
-                            "Red",
-                            "Green",
-                            "White",
-                            "09/10/2024"});
-#line 11
- testRunner.And("Select Country, Colors, Date and Click On link", ((string)(null)), table2, "And ");
-#line hidden
-#line 14
- testRunner.Then("Is Total Price of Product Is \'7100\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 15
+ testRunner.Then("Check pagination table that, Is \'10\' Products price is greater than \'$15\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

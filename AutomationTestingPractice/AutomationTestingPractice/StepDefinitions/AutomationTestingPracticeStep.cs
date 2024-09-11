@@ -89,10 +89,8 @@ namespace AutomationTestingPractice.StepDefinitions
                 // Click an element to open a new tab
                 practicePage.ClickElement(practicePage.LnkDifferentTab);
                 Thread.Sleep(3000);
-
                 // Get all open window handles
                 var allTabs = driver.WindowHandles;
-
                 // Switch to the new tab
                 foreach (var tab in allTabs)
                 {
@@ -102,7 +100,6 @@ namespace AutomationTestingPractice.StepDefinitions
                         break;
                     }
                 }
-
                 // Switch back to the original tab
                 driver.SwitchTo().Window(originalTab);
                 Thread.Sleep(3000);
@@ -113,9 +110,35 @@ namespace AutomationTestingPractice.StepDefinitions
         [Then(@"Is Total Price of Product Is '([^']*)'")]
         public void ThenIsTotalPriceOfProductIs(string expectedTotalPrice)
         {
-            Console.WriteLine(expectedTotalPrice);
             Assert.AreEqual(expectedTotalPrice, practicePage.TotalPrices().ToString());
         }
+
+        [Then(@"Check pagination table that, Is '([^']*)' Products price is greater than '([^']*)'")]
+        public void ThenCheckPaginationTableThatIsProductsPriceIsGreaterThan(string expectedProductCount, string lowestPriceOfProduct)
+        {
+            practicePage.ScrollToBottom();
+            Thread.Sleep(2000);
+
+            double number = practicePage.ConvertToDouble(lowestPriceOfProduct);
+            int sum = 0;
+            sum = sum + practicePage.PaginationTotalPrices(number);
+
+            practicePage.ClickElement(practicePage.SecondPage);
+            Thread.Sleep(2000);
+            sum = sum + practicePage.PaginationTotalPrices(number);
+
+            practicePage.ClickElement(practicePage.ThirdPage);
+            Thread.Sleep(2000);
+            sum = sum + practicePage.PaginationTotalPrices(number);
+
+            practicePage.ClickElement(practicePage.ForthPage);
+            Thread.Sleep(2000);
+            sum = sum + practicePage.PaginationTotalPrices(number);
+
+            Assert.AreEqual(double.Parse(expectedProductCount), sum);
+        }
+
+
 
 
     }

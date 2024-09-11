@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,11 @@ namespace AutomationTestingPractice.Pages
         public IWebElement MultiSelectColors => driver.FindElement(By.XPath("//select[@id='colors']"));
         public IWebElement Datepicker => driver.FindElement(By.XPath("//input[@id='datepicker']"));
         public IWebElement LnkDifferentTab => driver.FindElement(By.XPath("//a[normalize-space()='Posts (Atom)']"));
+        public IWebElement SecondPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[2]"));
+        public IWebElement ThirdPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[3]"));
+        public IWebElement ForthPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[4]"));
+
+
 
         public void SendText(IWebElement element, string text)
         {
@@ -95,6 +101,8 @@ namespace AutomationTestingPractice.Pages
         }
         public void ScrollToElement(IWebElement element) => ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", element);
 
+        public void ScrollToBottom() => ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
+
         public void ScrollElementDown(IWebDriver driver, IWebElement element, int pixels)
         {
             // JavaScript to scroll the element down by a specified number of pixels
@@ -131,5 +139,45 @@ namespace AutomationTestingPractice.Pages
 
             return sum;
         }
+
+        public void PaginationProductCount(double lowestPriceOfProducts)
+        {
+            // Count of product which is greater than the lowestPriceOfProducts 
+            List<string> prices = new List<string>();
+            int count = 0; 
+            var allPrices = driver.FindElements(By.XPath("//tbody/tr/td[3]"));
+            for (int i = 0; i < allPrices.Count; i++)
+            {
+                if(i > 5 && i < 12)
+                {
+                    prices.Add(allPrices[i].Text);
+                }
+            }
+            foreach(var item in prices)
+            {
+                if (ConvertToDouble(item) > lowestPriceOfProducts)
+                {
+                    count++;
+                }
+            }
+            for (int i = 1;i <= 4;i++) 
+            {
+                var page = driver.FindElement(By.XPath($"//ul[@id='pagination']/li[{i}]"));
+                ClickElement(page);
+             }
+
+        }
+
+        public double ConvertToDouble(string priceString)
+        {
+            // Remove the dollar sign
+            string cleanedPriceString = priceString.Replace("$", "");
+
+            // Parse the cleaned string to double
+            double price = double.Parse(cleanedPriceString, CultureInfo.InvariantCulture);
+
+            return price;
+        }
+
     }
 }
