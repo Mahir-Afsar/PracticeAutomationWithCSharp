@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JUlm2Mjh1+6XR2W8qOrpBA5u5aqbip9vOUxrTgl+ZZXxWM4hfACZKeu2u1nWA+miQu26H4Ss5JgzxnXS45IxIQ==",
+  "dgSpecHash": "0QXkQ5LzrkBCELX3ZAYHjrAkR1q7do37A15aEQ5NCcQysWQ11IFLtgo9xryJb7f7A/5xSffV7bAzZdL/io+Pqw==",
   "success": true,
-  "projectFilePath": "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
+  "projectFilePath": "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OSL\\.nuget\\packages\\bodi\\1.5.0\\bodi.1.5.0.nupkg.sha512",
     "C:\\Users\\OSL\\.nuget\\packages\\faker\\1.2.0\\faker.1.2.0.nupkg.sha512",

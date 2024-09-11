@@ -113,6 +113,7 @@ namespace AutomationTestingPractice.StepDefinitions
         [Then(@"Is Total Price of Product Is '([^']*)'")]
         public void ThenIsTotalPriceOfProductIs(string expectedTotalPrice)
         {
+            Console.WriteLine(expectedTotalPrice);
             Assert.AreEqual(expectedTotalPrice, practicePage.TotalPrices().ToString());
         }
 

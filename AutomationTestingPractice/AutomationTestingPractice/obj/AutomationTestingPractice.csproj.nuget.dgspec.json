@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj": {}
+    "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj": {}
   },
   "projects": {
-    "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj": {
+    "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
+        "projectUniqueName": "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
         "projectName": "AutomationTestingPractice",
-        "projectPath": "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
+        "projectPath": "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\AutomationTestingPractice.csproj",
         "packagesPath": "C:\\Users\\OSL\\.nuget\\packages\\",
-        "outputPath": "D:\\Automation Testing\\Learning\\AutomationTestingPractice\\AutomationTestingPractice\\obj\\",
+        "outputPath": "D:\\Automation Testing\\PracticeAutomationWithCSharp\\AutomationTestingPractice\\AutomationTestingPractice\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OSL\\AppData\\Roaming\\NuGet\\NuGet.Config",
