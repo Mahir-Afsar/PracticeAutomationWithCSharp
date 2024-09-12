@@ -120,22 +120,49 @@ namespace AutomationTestingPractice.StepDefinitions
             Thread.Sleep(2000);
 
             double number = practicePage.ConvertToDouble(lowestPriceOfProduct);
-            int sum = 0;
-            sum = sum + practicePage.PaginationTotalPrices(number);
+            double totalCount = practicePage.MultiplePageProductCount(number);
 
-            practicePage.ClickElement(practicePage.SecondPage);
+            Assert.AreEqual(double.Parse(expectedProductCount), totalCount);
+        }
+
+        [When(@"Search <SearchKey> on search field")]
+        public void WhenSearchSearchKeyOnSearchField(Table table)
+        {
+            // Scroll To Top
+            // practicePage.ScrollToTop();
+
+            // Click On Search Field To write
+            practicePage.ClickElement(practicePage.SearchField);
+            var dataSet = table.CreateSet<TestData>();
+            foreach (var item in dataSet)
+            {
+                practicePage.SendText(practicePage.SearchField, item.SearchKey);
+                practicePage.SearchField.SendKeys(Keys.Enter);
+                Thread.Sleep(2000);
+
+                // Click and Switch back to Orginal tab
+                practicePage.SwitchBackToOrginalTab(practicePage.FirstSearchResult);
+                Thread.Sleep(2000);
+            }
+            
+        }
+
+        [When(@"Go To New Browser Window and Come Back")]
+        public void WhenGoToNewBrowserWindowAndComeBack()
+        {
+            practicePage.SwitchBackToOrginalTab(practicePage.BtnNewBrowserWindow);
+        }
+
+        [When(@"Click on Alert, Confirm Box and Prompt")]
+        public void WhenClickOnAlertConfirmBoxAndPrompt()
+        {
+            // Alert
+            practicePage.AlertConfirmBox(practicePage.BtnAlert);
             Thread.Sleep(2000);
-            sum = sum + practicePage.PaginationTotalPrices(number);
 
-            practicePage.ClickElement(practicePage.ThirdPage);
+            // Confirm Box
+            practicePage.AlertConfirmBox(practicePage.BtnConfirmBox);
             Thread.Sleep(2000);
-            sum = sum + practicePage.PaginationTotalPrices(number);
-
-            practicePage.ClickElement(practicePage.ForthPage);
-            Thread.Sleep(2000);
-            sum = sum + practicePage.PaginationTotalPrices(number);
-
-            Assert.AreEqual(double.Parse(expectedProductCount), sum);
         }
 
 

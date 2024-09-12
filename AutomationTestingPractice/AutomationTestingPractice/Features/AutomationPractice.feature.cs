@@ -105,8 +105,29 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
  testRunner.Given("Go To Automation Testing Practice Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 15
- testRunner.Then("Check pagination table that, Is \'10\' Products price is greater than \'$15\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Email",
+                            "Phone",
+                            "Address",
+                            "Gender",
+                            "Day1",
+                            "Day2",
+                            "Day3"});
+                table1.AddRow(new string[] {
+                            "Mahir Afsar",
+                            "Mahir@gmail.com",
+                            "01302309325",
+                            "",
+                            "Male",
+                            "Sunday",
+                            "Monday",
+                            "Thursday"});
+#line 8
+ testRunner.When("Enter Users Name, Email, Phone, Address, Gender and Days", ((string)(null)), table1, "When ");
+#line hidden
+#line 20
+ testRunner.And("Click on Alert, Confirm Box and Prompt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -21,5 +21,6 @@ namespace AutomationTestingPractice.Helper
         public string Color2 { get; set; }
         public string Color3 { get; set; }
         public string Date { get; set; }
+        public string SearchKey {  get; set; }
     }
 }

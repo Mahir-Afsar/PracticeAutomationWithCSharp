@@ -2,8 +2,10 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +18,6 @@ namespace AutomationTestingPractice.Pages
         {
             this.driver = driver;
         }
-
         public IWebElement TxtName => driver.FindElement(By.XPath("//input[@id='name']"));
         public IWebElement TxtEmail => driver.FindElement(By.XPath("//input[@id='email']"));
         public IWebElement TxtPhone => driver.FindElement(By.XPath("//input[@id='phone']"));
@@ -34,8 +35,12 @@ namespace AutomationTestingPractice.Pages
         public IWebElement SecondPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[2]"));
         public IWebElement ThirdPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[3]"));
         public IWebElement ForthPage => driver.FindElement(By.XPath("//ul[@id='pagination']/li[4]"));
-
-
+        public IWebElement SearchField => driver.FindElement(By.XPath("//input[@id='Wikipedia1_wikipedia-search-input']"));
+        public IWebElement FirstSearchResult => driver.FindElement(By.XPath("//div[@id='Wikipedia1_wikipedia-search-results']//div[1]//a"));
+        public IWebElement BtnNewBrowserWindow => driver.FindElement(By.XPath("//button[normalize-space()='New Browser Window']"));
+        public IWebElement BtnAlert => driver.FindElement(By.XPath("//button[normalize-space()='Alert']"));
+        public IWebElement BtnConfirmBox => driver.FindElement(By.XPath("//button[normalize-space()='Confirm Box']"));
+        public IWebElement BtnPrompt => driver.FindElement(By.XPath("//button[normalize-space()='Prompt']"));
 
         public void SendText(IWebElement element, string text)
         {
@@ -100,9 +105,8 @@ namespace AutomationTestingPractice.Pages
             }
         }
         public void ScrollToElement(IWebElement element) => ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", element);
-
         public void ScrollToBottom() => ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
-
+        public void ScrollToTop() => ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, 0);");
         public void ScrollElementDown(IWebDriver driver, IWebElement element, int pixels)
         {
             // JavaScript to scroll the element down by a specified number of pixels
@@ -140,7 +144,7 @@ namespace AutomationTestingPractice.Pages
             return sum;
         }
 
-        public void PaginationProductCount(double lowestPriceOfProducts)
+        public int SinglePageProductCount(double lowestPriceOfProducts)
         {
             // Count of product which is greater than the lowestPriceOfProducts 
             List<string> prices = new List<string>();
@@ -148,7 +152,7 @@ namespace AutomationTestingPractice.Pages
             var allPrices = driver.FindElements(By.XPath("//tbody/tr/td[3]"));
             for (int i = 0; i < allPrices.Count; i++)
             {
-                if(i > 5 && i < 12)
+                if(i > 5 && i < 11)
                 {
                     prices.Add(allPrices[i].Text);
                 }
@@ -160,12 +164,21 @@ namespace AutomationTestingPractice.Pages
                     count++;
                 }
             }
-            for (int i = 1;i <= 4;i++) 
+            
+            return count;
+        }
+        public double MultiplePageProductCount(double lowestPriceOfProducts)
+        {
+            int sum = 0;
+            for (int i = 1; i <= 4; i++)
             {
                 var page = driver.FindElement(By.XPath($"//ul[@id='pagination']/li[{i}]"));
                 ClickElement(page);
-             }
-
+                Thread.Sleep(2000);
+                
+                sum = sum + SinglePageProductCount(lowestPriceOfProducts);
+            }
+            return sum;
         }
 
         public double ConvertToDouble(string priceString)
@@ -177,6 +190,49 @@ namespace AutomationTestingPractice.Pages
             double price = double.Parse(cleanedPriceString, CultureInfo.InvariantCulture);
 
             return price;
+        }
+
+        public void SwitchBackToOrginalTab(IWebElement clickableElement)
+        {
+            // Store the current window handle (original tab)
+            string originalTab = driver.CurrentWindowHandle;
+            // Click an element to open a new tab
+            ClickElement(clickableElement);
+            Thread.Sleep(3000);
+            // Get all open window handles
+            var allTabs = driver.WindowHandles;
+            // Switch to the new tab
+            foreach (var tab in allTabs)
+            {
+                if (tab != originalTab)
+                {
+                    driver.SwitchTo().Window(tab);
+                    break;
+                }
+            }
+            // Switch back to the original tab
+            driver.SwitchTo().Window(originalTab);
+        }
+
+        public void AlertConfirmBox(IWebElement element)
+        {
+            // Click the alert button
+            element.Click();
+            Thread.Sleep(2000);
+
+            // Switch to the alert
+            var alert = driver.SwitchTo().Alert();
+
+            // Get the text from the alert
+            string alertText = alert.Text;
+            Console.WriteLine("Alert text: " + alertText);
+
+            // Accept the alert (click OK)
+            alert.Accept();
+
+            // Optionally, you can also dismiss the alert (click Cancel) by:
+            // alert.Dismiss();
+
         }
 
     }
